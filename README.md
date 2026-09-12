@@ -1,12 +1,10 @@
 # D7 Retention Explorer
 
-An interactive classroom simulator based on the multiple linear regression model in `1_Predicting_Retention.ipynb`.
+An interactive classroom simulator based on a multiple linear regression model for seven-day user retention.
 
-## Included documentation
+## What it does
 
-- `docs/MODEL_CARD.md` — purpose, equation, intended use, and limitations.
-- `docs/DATA_DICTIONARY.md` — definitions of the model inputs and target.
-- `.streamlit/config.toml` — the application theme and Streamlit server settings.
+Enter values for onboarding completion, push-notification opt-in, and average first-week sessions. The application estimates D7 retention and shows the contribution associated with each driver.
 
 ## Run locally
 
@@ -17,9 +15,19 @@ streamlit run streamlit_app.py
 
 ## Deploy on Streamlit Community Cloud
 
-1. Create a new GitHub repository, for example `analytical-ai-d7-retention`.
-2. Upload the complete project while retaining the folder structure.
-3. In Streamlit Community Cloud, select **Create app**, choose the repository and branch, and set the main file path to `streamlit_app.py`.
-4. Click **Deploy**. Streamlit will provide the public application URL.
+Set the repository's main file path to `streamlit_app.py`, then deploy. No secrets or external data connection are required.
 
-The model shows statistical associations from the classroom dataset, not causal effects.
+### Class-code access
+
+The app requires a class code. In Streamlit Community Cloud, open **App settings → Secrets** and add:
+
+```toml
+STUDENT_ACCESS_CODE = "your-class-code"
+```
+
+The application compares codes without regard to capitalisation. Do not commit the real code to GitHub.
+
+## Documentation
+
+- `docs/MODEL_CARD.md` — model purpose, equation, use, and limitations.
+- `docs/DATA_DICTIONARY.md` — definitions of the inputs and target.

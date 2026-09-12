@@ -9,6 +9,32 @@ COEFFICIENTS = {
     "Week 1 sessions": 0.1931,
 }
 
+def require_class_code() -> None:
+    if st.session_state.get("class_access_granted"):
+        return
+
+    expected_code = st.secrets.get("STUDENT_ACCESS_CODE", "")
+    st.title("D7 Retention Explorer")
+    st.caption("Classroom access")
+
+    if not expected_code:
+        st.error("Class-code access has not been configured for this app.")
+        st.stop()
+
+    with st.form("class_code_form"):
+        code = st.text_input("Class code", type="password", placeholder="Enter code")
+        submitted = st.form_submit_button("Open explorer", use_container_width=True)
+
+    if submitted:
+        if code.strip().casefold() == expected_code.strip().casefold():
+            st.session_state.class_access_granted = True
+            st.rerun()
+        st.error("That class code is not valid. Please check it and try again.")
+    st.stop()
+
+
+require_class_code()
+
 st.title("D7 Retention Explorer")
 st.caption("Use a multiple linear regression model to explore how early product experience indicators relate to seven-day retention.")
 
